@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { auth, provider } from '@/app/firebase/config'
+import { auth, provider } from '@/app/lib/config'
 import { User, getRedirectResult, onAuthStateChanged, signInWithRedirect, signOut } from 'firebase/auth';
 
 export default function Navbar() {
@@ -57,15 +57,23 @@ export default function Navbar() {
   }
 
   return (
-    <nav>
-      {userData ? <span>{userData.displayName}</span> : <></>}
-      <ul>
-        {
-          userData ? 
-          <li><button onClick={() => signOutUser()}>Sign Out</button></li> :
-          <li><button onClick={() => signInUser()}>Sign In</button></li>
-        }
-      </ul>
+    <nav className='navbar'>
+      <h1>calendar</h1>
+      <div className='user-wrap'>
+        {userData ? 
+        <div className='profile'>
+          <span>{userData.email}</span>
+          <img src={userData.photoURL} alt='profile picture' />
+        </div>
+        : <></>}
+        <ul>
+          {
+            userData ? 
+            <li><button className='btn-primary' onClick={() => signOutUser()}>Sign Out</button></li> :
+            <li><button className='btn-primary' onClick={() => signInUser()}>Sign In</button></li>
+          }
+        </ul>
+      </div>
     </nav>
   )
 }
