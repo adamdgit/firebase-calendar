@@ -12,11 +12,11 @@
 # next.js
 /.next/
 /out/
+app/firebase
+app/lib
 
 # production
 /build
-/firebase
-/lib
 
 # misc
 .DS_Store
