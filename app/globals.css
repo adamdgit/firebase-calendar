@@ -3,6 +3,8 @@
   line-height: 1.5;
   font-size: 16px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  --navHeight: 100px;
+  --cal-width: 60px;
 }
 
 * { margin: 0px; padding: 0px; border: 0px; box-sizing: border-box; }
@@ -11,6 +13,252 @@ html { scroll-behavior: smooth; }
 button { cursor: pointer; }
 
 body {
-  background-color: #efefef;
+  background-color: #eee;
   color: #111;
+}
+
+.page-wrap {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  height: calc(100dvh - var(--navHeight));
+}
+
+/*----- EVENTS STYLES -----*/
+.events {
+  min-height: 100%;
+  padding: 1rem;
+}
+
+.event-items-wrap {
+  margin-top: 1rem;
+}
+
+.event-year {
+  padding: 1rem;
+}
+
+.event-month {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.item-wrap {
+  display: grid;
+  gap: 1rem;
+  background-color: white;
+  box-shadow: 0 0 10px 0 #ccc;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.item-wrap svg {
+  width: 20px;
+  height: 20px;
+}
+
+.item-date {
+  font-weight: bold;
+}
+
+.item-text {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.btn-edit, .btn-remove {
+  position: relative;
+  fill: #333;
+  background: var(--theme-blue);
+}
+
+.btn-edit:hover {
+  fill: #78b5e7;
+}
+
+.btn-remove:hover {
+  fill: #cc3939;
+}
+
+.btn-edit:hover .edit-tooltip,  .btn-remove:hover .remove-tooltip{
+  top: 30px;
+  opacity: 1;
+}
+
+.btn-edit:hover .arrow-up, .btn-remove:hover .arrow-up {
+  top: -5px;
+  right: 15px;
+}
+
+.edit-tooltip, .remove-tooltip {
+  top: 50px;
+  right: -10px;
+  width: 8rem;
+}
+
+.edit-tooltip, .remove-tooltip {
+  opacity: 0;
+  pointer-events: none;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: #333;
+  color: white;
+  height: 3rem;
+  z-index: 88888;
+  transition: 200ms ease-in-out;
+}
+
+.arrow-up {
+  position: absolute;
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #333;
+  z-index: 99999;
+}
+
+/*----- CALENDAR STYLES -----*/
+.calendar-wrap {
+  min-height: 100%;
+}
+
+.calendar {
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0 0 10px 0 #ccc;
+  margin: 2rem;
+  padding: 1rem;
+}
+
+.cal-header {
+}
+
+.cal-dates {
+  display: flex;
+  justify-content: center;
+}
+
+.cal-dates select {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+}
+
+.cal-year, .cal-month {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: var(--cal-width);
+}
+
+.cal-row {
+  display: grid;
+  grid-template-columns: repeat(7, var(--cal-width));
+  justify-content: center;
+  background: #eee;
+}
+
+.cal-days-wrap {
+  border: 1px solid #eee;
+  display: grid;
+  grid-template-columns: repeat(7, var(--cal-width));
+}
+
+.event-num {
+  pointer-events: none;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: .7rem;
+  background-color: #363636;
+  width: 20px;
+  height: 20px;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.date {
+  background: white;
+  width: 100%;
+  height: var(--cal-width);
+}
+
+.date:hover {
+  color: white;
+  background: #78b5e7;
+}
+
+.today {
+  color: white;
+  background: #b178e7;
+}
+
+.notCurrentMonth {
+  background: #ddd;
+}
+
+/*----- NAVBAR STYLES -----*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  height: var(--navHeight);
+}
+
+.navbar ul {
+  list-style: none;
+}
+
+.user-wrap {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 #ccc;
+}
+
+.profile img {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+
+.btn-primary {
+  background-color: white;
+  border-radius: 5px;
+  height: 30px;
+  width: 80px;
+  transition: all 150ms ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #363636;
+  color: white;
 }
