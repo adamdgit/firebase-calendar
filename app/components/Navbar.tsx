@@ -58,7 +58,7 @@ export default function Navbar() {
 
   return (
     <nav className='navbar'>
-      <h1>calendar</h1>
+      <h1>calendar manager</h1>
       <div className='user-wrap'>
         {userData ? 
         <div className='profile'>
