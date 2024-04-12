@@ -49,7 +49,6 @@ export default function Home() {
       <Navbar />
       <main className="page-wrap">
         <div className="events">
-          <h3>This months events:</h3>
           <UserEvents 
             setEventItems={setEventItems}
             eventItems={eventItems}
