@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react'
 import { calcCalendarDays } from "../lib/calcDays"
 import DayOption from './DayOption'
 import type { calendarEventProps } from "../page"
+import EventPopup from './eventPopup'
 
 // create dynamic dates based on current year forward
 const yearData: Number[] = []
@@ -19,17 +20,18 @@ const monthData = [
 ]
 
 type calendarProps = {
-  setPopupIsVisible: (args: boolean) => void,
-  setSelectedDate: (args: string) => void,
-  eventItems: calendarEventProps[]
+  eventItems: calendarEventProps[],
+  setEventItems: (args: calendarEventProps[]) => void,
 }
 
 export default function Calendar(
-  { setPopupIsVisible, setSelectedDate, eventItems }: calendarProps) {
+  { eventItems, setEventItems }: calendarProps) {
 
   const monthSelect = useRef<HTMLSelectElement>(null);
   const yearSelect = useRef<HTMLSelectElement>(null);
   const [calendarData, setCalendarData] = useState<Date[]>([])
+  const [popupIsVisible, setPopupIsVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
 
   // on mount render current month days
   useEffect(() => {
@@ -46,6 +48,12 @@ export default function Calendar(
   return (
     <div className="calendar-wrap" id="datepicker-container">
       <div className="calendar">
+        <EventPopup 
+          popupIsVisible={popupIsVisible} 
+          setPopupIsVisible={setPopupIsVisible}
+          selectedDate={selectedDate}
+          setEventItems={setEventItems}
+        />
         <div className="cal-header">
 
           <div className="cal-dates">
@@ -97,10 +105,10 @@ export default function Calendar(
             <DayOption 
               key={i}
               monthSelect={monthSelect.current}
-              setPopupIsVisible={setPopupIsVisible}
-              setSelectedDate={setSelectedDate}
               day={day}
               eventItems={eventItems}
+              setPopupIsVisible={setPopupIsVisible}
+              setSelectedDate={setSelectedDate}
             />
           ))
         }
