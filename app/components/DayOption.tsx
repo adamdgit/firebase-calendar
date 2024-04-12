@@ -6,13 +6,13 @@ import type { calendarEventProps } from "../page"
 type dayOptionProps = {
   day: Date,
   monthSelect: any,
+  eventItems: calendarEventProps[],
   setPopupIsVisible: (args: boolean) => void,
-  setSelectedDate: (args: string) => void,
-  eventItems: calendarEventProps[]
+  setSelectedDate: (args: string) => void
 }
 
 export default function DayOption(
-  { day, monthSelect, setPopupIsVisible, setSelectedDate, eventItems } 
+  { day, monthSelect, eventItems, setPopupIsVisible, setSelectedDate } 
   : dayOptionProps) {
 
   // number of events for this day 
