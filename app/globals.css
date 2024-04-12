@@ -138,8 +138,7 @@ body {
   opacity: 0;
   pointer-events: none;
   display: grid;
-  justify-content: center;
-  text-align: center;
+  gap: 1rem;
   position: absolute;
   background: #333;
   color: white;
@@ -148,10 +147,13 @@ body {
   transform: translateX(-50%);
   z-index: 999;
   top: 500px;
-  width: 400px;
-  height: 300px;
   box-shadow: 0 0 1px 5000px rgba(0,0,0,0.6);
   transition: all 150ms ease-in-out;
+}
+
+.event-heading {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .btn-close-popup {
@@ -163,6 +165,26 @@ body {
   border-radius: 50%;
 }
 
+.popup-date-time {
+  display: grid;
+  gap: .5rem;
+}
+
+.popup-date, .popup-time  {
+  display: flex;
+  gap: 10px;
+}
+
+.popup-time input {
+  width: 50px;
+  height: 25px;
+}
+
+.popup-desc {
+  width: 300px;
+  height: 100px;
+}
+
 .is-visible {
   opacity: 1;
   pointer-events: all;
@@ -170,17 +192,14 @@ body {
 }
 
 .btn-submit {
-  width: 200px;
+  width: 120px;
   border-radius: 5px;
+  height: 35px;
 }
 
 .btn-submit:hover {
   background: #78b5e7;
   color: white;
-}
-
-.event-heading {
-
 }
 
 .arrow-popup {
