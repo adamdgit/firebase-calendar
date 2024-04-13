@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { calcCalendarDays } from "../lib/calcDays"
 import DayOption from './DayOption'
-import type { calendarEventProps } from "../page"
+import type { firebaseEventObj } from "../page"
 import EventPopup from './eventPopup'
 
 // create dynamic dates based on current year forward
@@ -20,8 +20,8 @@ const monthData = [
 ]
 
 type calendarProps = {
-  eventItems: calendarEventProps[],
-  setEventItems: (args: calendarEventProps[]) => void,
+  eventItems: firebaseEventObj[],
+  setEventItems: (args: firebaseEventObj[]) => void,
 }
 
 export default function Calendar(
@@ -52,6 +52,7 @@ export default function Calendar(
           popupIsVisible={popupIsVisible} 
           setPopupIsVisible={setPopupIsVisible}
           selectedDate={selectedDate}
+          eventItems={eventItems}
           setEventItems={setEventItems}
         />
         <div className="cal-header">
