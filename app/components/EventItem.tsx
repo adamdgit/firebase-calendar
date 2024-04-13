@@ -1,13 +1,15 @@
 import { useState } from "react";
 import Tooltip from "./Tooltip";
-import type { calendarEventProps } from "../page"
+import type { firebaseEventObj } from "../page"
 
 type eventItemProps = {
-  item: calendarEventProps,
-  setEventItems: (args: calendarEventProps[]) => void
+  item: firebaseEventObj,
+  setEventItems: (args: firebaseEventObj[]) => void
 }
 
 export default function EventItem({ item, setEventItems } : eventItemProps) {
+  // convert UTC date from firebase to australian time
+  const formatDate = new Date(item.datetime).toLocaleDateString('en-au', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
   const [editEnabled, setEditEnabled] = useState(false)
   const [desc, setDesc] = useState(item.description)
@@ -23,10 +25,7 @@ export default function EventItem({ item, setEventItems } : eventItemProps) {
   return (
     <li className="item-wrap">
       <div className="item-text" data-id={item.id}>
-        <span className="item-date">
-          {new Date(item.date).toLocaleDateString('en-au', { day: '2-digit', month: 'long', year: 'numeric' })}
-          <span>at: {item.time}</span>
-        </span>
+        <span className="item-title">{item.title}</span>
         <div className="item-btns">
           <button onClick={() => setEditEnabled(!editEnabled)} className="btn-edit">
             <Tooltip message={"Edit event"} name={"edit"} />
@@ -42,7 +41,10 @@ export default function EventItem({ item, setEventItems } : eventItemProps) {
           </button>
         </div>
       </div>
-      <span>{item.description}</span> 
+      <span>{item.description}</span>
+      <span className="item-date">
+        {formatDate}
+      </span>
     </li>
   )
 }
