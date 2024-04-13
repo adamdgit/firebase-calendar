@@ -58,21 +58,23 @@ export default function Navbar() {
 
   return (
     <nav className='navbar'>
-      <h1>calendar manager</h1>
-      <div className='user-wrap'>
-        {userData ? 
-        <div className='profile'>
-          <span>{userData.email}</span>
-          <img src={userData.photoURL} alt='profile picture' />
+      <div className='nav-wrap'>
+        <h1>Calendar Manager</h1>
+        <div className='user-wrap'>
+          {userData ? 
+          <div className='profile'>
+            <span>{userData.email}</span>
+            <img src={userData.photoURL} alt='profile picture' />
+          </div>
+          : <></>}
+          <ul>
+            {
+              userData ? 
+              <li><button className='btn-primary' onClick={() => signOutUser()}>Sign Out</button></li> :
+              <li><button className='btn-primary' onClick={() => signInUser()}>Sign In</button></li>
+            }
+          </ul>
         </div>
-        : <></>}
-        <ul>
-          {
-            userData ? 
-            <li><button className='btn-primary' onClick={() => signOutUser()}>Sign Out</button></li> :
-            <li><button className='btn-primary' onClick={() => signInUser()}>Sign In</button></li>
-          }
-        </ul>
       </div>
     </nav>
   )
