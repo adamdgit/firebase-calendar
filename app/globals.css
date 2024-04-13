@@ -3,8 +3,9 @@
   line-height: 1.5;
   font-size: 16px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  --navHeight: 100px;
+  --navHeight: 130px;
   --cal-width: 60px;
+  --maxPageWidth: 1200px;
 }
 
 * { margin: 0px; padding: 0px; border: 0px; box-sizing: border-box; }
@@ -15,16 +16,22 @@ button { cursor: pointer; }
 body {
   background-color: #eee;
   color: #111;
+  display: grid;
 }
 
 h1 {
   font-size: 1.8rem;
+  color: white;
 }
 
 .page-wrap {
   display: grid;
+  justify-self: center;
   grid-template-columns: 1fr auto;
   height: calc(100dvh - var(--navHeight));
+  padding-top: 1rem;
+  width: 100%;
+  max-width: var(--maxPageWidth);
 }
 
 /*----- EVENTS STYLES -----*/
@@ -36,7 +43,11 @@ h1 {
 .event-items-wrap {
   display: grid;
   gap: 1rem;
-  margin-top: 1rem;
+}
+
+.item-title {
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .item-btns {
@@ -62,6 +73,7 @@ h1 {
   display: flex;
   gap: 1rem;
   font-weight: bold;
+  font-size: .8rem;
 }
 
 .item-text {
@@ -144,6 +156,11 @@ h1 {
   transition: all 150ms ease-in-out;
 }
 
+.event-title {
+  padding: .7rem;
+  width: auto;
+}
+
 .event-heading {
   font-size: 1.2rem;
   font-weight: bold;
@@ -203,6 +220,7 @@ h1 {
 /*----- CALENDAR STYLES -----*/
 .calendar-wrap {
   min-height: 100%;
+  padding: 2rem;
 }
 
 .calendar {
@@ -210,7 +228,6 @@ h1 {
   background-color: white;
   border-radius: 7px;
   box-shadow: 0 0 10px 0 #ccc;
-  margin: 2rem;
   padding: 1rem;
 }
 
@@ -291,14 +308,20 @@ h1 {
 
 /*----- NAVBAR STYLES -----*/
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem;
-  height: var(--navHeight);
+  display: grid;
+  padding-inline: 2rem;
+  background: #333;
+  border-bottom: 6px solid #78b5e7
 }
 
-.navbar ul {
-  list-style: none;
+.nav-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-self: center;
+  height: var(--navHeight);
+  width: 100%;
+  max-width: var(--maxPageWidth);
 }
 
 .user-wrap {
@@ -314,7 +337,7 @@ h1 {
   background-color: white;
   padding: .5rem 1rem;
   border-radius: 5px;
-  box-shadow: 0 0 10px 0 #ccc;
+  box-shadow: 0 0 10px 0 #000;
 }
 
 .profile img {
@@ -332,6 +355,6 @@ h1 {
 }
 
 .btn-primary:hover {
-  background-color: #363636;
+  background-color: #cc3939;
   color: white;
 }
