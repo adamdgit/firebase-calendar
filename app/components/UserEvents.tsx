@@ -1,27 +1,25 @@
 'use client'
 
-import { useMemo, useState } from "react";
 import EventItem from "./EventItem";
-import type { calendarEventProps } from "../page"
+import type { firebaseEventObj } from "../page"
 
 type lsItemsProps = {
-  eventItems: calendarEventProps[],
-  setEventItems: (args: calendarEventProps[]) => void
+  eventItems: firebaseEventObj[],
+  setEventItems: (args: firebaseEventObj[]) => void
 }
 
-export default function UserEvents({ eventItems, setEventItems } : lsItemsProps) {
+let currentMonth: String;
 
+export default function UserEvents({ eventItems, setEventItems } : lsItemsProps) {
   // get current year and months via first event date.
   // events are retrieved from firebase based on selected month only
-  const currentMonth = new Date(eventItems[0]
-    .date).toLocaleString('en-us', { month: 'long', year: 'numeric' })
-  
+  eventItems.length < 1 ? null : currentMonth = new Date(eventItems[0].datetime).toLocaleString('en-us', { month: 'long', year: 'numeric' })
+
   return (
     <div className="event-items-wrap">
       <h3>Events for {currentMonth}:</h3>
       {
-        eventItems?.sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
-        .map((item, i) => 
+        eventItems.sort((a,b) => a.datetime - b.datetime).map((item, i) => 
           <EventItem 
             key={item.id} 
             item={item} 
