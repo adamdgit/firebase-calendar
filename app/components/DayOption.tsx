@@ -1,12 +1,12 @@
 'use client'
 
 import { useMemo, useState } from "react";
-import type { calendarEventProps } from "../page"
+import type { firebaseEventObj } from "../page"
 
 type dayOptionProps = {
   day: Date,
   monthSelect: any,
-  eventItems: calendarEventProps[],
+  eventItems: firebaseEventObj[],
   setPopupIsVisible: (args: boolean) => void,
   setSelectedDate: (args: string) => void
 }
@@ -16,7 +16,7 @@ export default function DayOption(
   : dayOptionProps) {
 
   // number of events for this day 
-  const [numEvents, setNumEvents] = useState<number>()
+  const [numEvents, setNumEvents] = useState(0);
 
   function handlePopup(e: any) {
     setPopupIsVisible(true);
@@ -27,7 +27,8 @@ export default function DayOption(
     // calculate number of items for each day
     let count = 0
     eventItems.map(item => {
-      if (new Date(item.date).toLocaleString('en-au') === new Date(day).toLocaleString('en-au')) {
+      if (new Date(item.datetime).toLocaleString('en-au', { day: '2-digit', month: '2-digit', year: '2-digit' }) 
+        === new Date(day).toLocaleString('en-au', { day: '2-digit', month: '2-digit', year: '2-digit' })) {
         count += 1
       }
     })
