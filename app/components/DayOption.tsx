@@ -5,7 +5,7 @@ import type { firebaseEventObj } from "../page"
 
 type dayOptionProps = {
   day: Date,
-  monthSelect: any,
+  monthSelect: number,
   eventItems: firebaseEventObj[],
   setPopupIsVisible: (args: boolean) => void,
   setSelectedDate: (args: string) => void
@@ -46,7 +46,7 @@ export default function DayOption(
         onClick={(e) => handlePopup(e)}
         className={
           day.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) === new Date().toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' }) ? "date today"
-        : day.getMonth() === Number(monthSelect.value) ? "date"
+        : day.getMonth() === Number(monthSelect) ? "date"
         : "date notCurrentMonth"
         } 
         value={day.toLocaleString('en-us', { day: '2-digit', month: '2-digit', year: 'numeric' })}>
