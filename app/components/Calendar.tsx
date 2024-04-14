@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { calcCalendarDays } from "../lib/calcDays"
 import DayOption from './DayOption'
 import type { firebaseEventObj } from "../page"
@@ -22,13 +22,15 @@ const monthData = [
 type calendarProps = {
   eventItems: firebaseEventObj[],
   setEventItems: (args: firebaseEventObj[]) => void,
+  setCurrYear: (args: number) => void,
+  currYear: number,
+  setCurrMonth: (args: number) => void,
+  currMonth: number
 }
 
 export default function Calendar(
-  { eventItems, setEventItems }: calendarProps) {
+  { eventItems, setEventItems, setCurrYear, currYear, setCurrMonth, currMonth }: calendarProps) {
 
-  const monthSelect = useRef<HTMLSelectElement>(null);
-  const yearSelect = useRef<HTMLSelectElement>(null);
   const [calendarData, setCalendarData] = useState<Date[]>([])
   const [popupIsVisible, setPopupIsVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
@@ -36,14 +38,8 @@ export default function Calendar(
   // on mount render current month days
   useEffect(() => {
     // set current month 
-    setCalendarData(calcCalendarDays(monthSelect.current!.value, yearSelect.current!.value));
+    setCalendarData(calcCalendarDays(currMonth, currYear));
   }, [])
-
-  function showHideCalendarMonths() {
-    // on change year or month gets updated
-    // need to render new calendar by adding new days to calendar data state
-    setCalendarData(calcCalendarDays(monthSelect.current!.value, yearSelect.current!.value))
-  }
 
   return (
     <div className="calendar-wrap" id="datepicker-container">
@@ -59,7 +55,11 @@ export default function Calendar(
 
           <div className="cal-dates">
             <span className="cal-year">Year: 
-              <select ref={yearSelect} onChange={() => showHideCalendarMonths()}>
+              <select 
+                onChange={(e) => {
+                  setCalendarData(calcCalendarDays(currMonth, Number(e.target.value))), 
+                  setCurrYear(Number(e.target.value))
+                }}>
                 {
                   yearData.map(year => (
                     <option 
@@ -73,9 +73,11 @@ export default function Calendar(
             </span>
             <span className="cal-month">Month: 
               <select 
-                ref={monthSelect} 
                 defaultValue={new Date().getMonth()} 
-                onChange={() => showHideCalendarMonths()}>
+                onChange={(e) => {
+                  setCalendarData(calcCalendarDays(Number(e.target.value), currYear)), 
+                  setCurrMonth(Number(e.target.value))
+                }}>
                 {
                   monthData.map((month, i) => (
                     <option
@@ -100,12 +102,12 @@ export default function Calendar(
           </div>
         </div>
 
-        <div className="cal-days-wrap" data-month={monthSelect.current?.value} data-year={yearSelect.current?.value} >
+        <div className="cal-days-wrap" data-month={currMonth} data-year={currYear} >
         {
           calendarData.map((day, i) => (
             <DayOption 
               key={i}
-              monthSelect={monthSelect.current}
+              monthSelect={currMonth}
               day={day}
               eventItems={eventItems}
               setPopupIsVisible={setPopupIsVisible}
