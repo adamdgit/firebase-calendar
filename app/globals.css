@@ -57,21 +57,17 @@ h1 {
 
 .item-wrap {
   display: grid;
-  gap: 1rem;
+  gap: .7rem;
   background-color: white;
   box-shadow: 0 0 10px 0 #ccc;
   border-radius: 5px;
-  padding: 1rem;
-}
-
-.item-wrap svg {
-  width: 20px;
-  height: 20px;
+  padding: .9rem;
 }
 
 .item-date {
   display: flex;
   gap: 1rem;
+  align-items: center;
   font-weight: bold;
   font-size: .8rem;
 }
@@ -80,7 +76,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   gap: .5rem;
-  padding-bottom: 1rem;
+  padding-bottom: 10px;
   border-bottom: 1px solid #ddd;
 }
 
