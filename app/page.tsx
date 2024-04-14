@@ -20,25 +20,33 @@ export default function Home() {
   const [eventItems, setEventItems] = useState<firebaseEventObj[]>([]);
   const [updateMsg, setUpdateMsg] = useState("");
   const [needsUpdate, setNeedsUpdate] = useState(false);
+  const [currYear, setCurrYear] = useState(new Date().getFullYear());
+  const [currMonth, setCurrMonth] = useState(new Date().getMonth());
 
   async function getUserEvents() {
+    // Only want to fetch events for selected month
+    const firstDayOfMonth = new Date(currYear, currMonth, 1);
+    const lastDayOfMonth = new Date(currYear, currMonth + 1, 0);
+
     try {
       const docRef = await getDocs(query(collection(db, "events"),
-        where('author', '==', 'adammdemol@gmail.com')
-        // where('date', '<', 'next month')
+        where('author', '==', 'adammdemol@gmail.com'),
+        where('datetime', '>=', firstDayOfMonth),
+        where('datetime', '<=', lastDayOfMonth)
       ));
 
+      const tempData: firebaseEventObj[] = [];
       docRef.forEach(doc => {
         // iterate over each document and add the correct data
-        const data: firebaseEventObj = {
+        tempData.push({
           id: doc.id,
           author: doc.data().author,
           title: doc.data().title,
           datetime: doc.data().datetime.seconds * 1000,
           description: doc.data().description
-        }
-        setEventItems(prev => [...prev, data]);
+        });
       });
+      setEventItems(tempData);
     } catch (err) {
       console.error(err);
     }
@@ -47,7 +55,7 @@ export default function Home() {
   // on mount, get users documents from firebase
   useEffect(() => {
     getUserEvents();
-  },[])
+  },[currMonth, currYear]);
 
   return (
     <>
@@ -62,6 +70,10 @@ export default function Home() {
         <Calendar 
           eventItems={eventItems}
           setEventItems={setEventItems}
+          setCurrYear={setCurrYear}
+          currYear={currYear}
+          setCurrMonth={setCurrMonth}
+          currMonth={currMonth}
         />
       </main>
     </>
