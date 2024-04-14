@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { firebaseEventObj } from "../page"
 
 type dayOptionProps = {
@@ -8,20 +8,33 @@ type dayOptionProps = {
   monthSelect: number,
   eventItems: firebaseEventObj[],
   setPopupIsVisible: (args: boolean) => void,
-  setSelectedDate: (args: string) => void
+  setSelectedDate: (args: string) => void,
+  selectedDate: string
 }
 
 export default function DayOption(
-  { day, monthSelect, eventItems, setPopupIsVisible, setSelectedDate } 
+  { day, monthSelect, eventItems, setPopupIsVisible, setSelectedDate, selectedDate } 
   : dayOptionProps) {
 
   // number of events for this day 
   const [numEvents, setNumEvents] = useState(0);
+  const [active, setActive] = useState(false);
 
-  function handlePopup(e: any) {
+  const handlePopup = (e: any) => {
     setPopupIsVisible(true);
     setSelectedDate(e.target.value)
   }
+
+  // allows only one date to be highlighted at a time based on user selection
+  useEffect(() => {
+    if (new Date(day).toLocaleString('en-au', { day: '2-digit', month: '2-digit', year: '2-digit' })
+      === new Date(selectedDate).toLocaleString('en-au', { day: '2-digit', month: '2-digit', year: '2-digit' })) 
+    {
+      setActive(true);
+    } else {
+      setActive(false)
+    }
+  },[selectedDate])
 
   useMemo(() => {
     // calculate number of items for each day
@@ -36,7 +49,7 @@ export default function DayOption(
   },[eventItems, day])
 
   return (
-    <div style={{position: 'relative'}}>
+    <div style={active ? { position: 'relative', zIndex: '9999999' } : { position: 'relative' }}>
       <div 
         className="event-num"
         style={numEvents === 0 ? {display: 'none'} : {display: 'flex'}}>
