@@ -41,6 +41,15 @@ export default function Calendar(
     setCalendarData(calcCalendarDays(currMonth, currYear));
   }, [])
 
+  // whenever popup is visible, prevent mouse events for other elements
+  useEffect(() => {
+    if (popupIsVisible) {
+      document.querySelector('body')!.style.pointerEvents = 'none';
+    } else {
+      document.querySelector('body')!.style.pointerEvents = 'all';
+    }
+  },[popupIsVisible])
+
   return (
     <div className="calendar-wrap" id="datepicker-container">
       <div className="calendar">
@@ -104,14 +113,15 @@ export default function Calendar(
 
         <div className="cal-days-wrap" data-month={currMonth} data-year={currYear} >
         {
-          calendarData.map((day, i) => (
+          calendarData.map(day => (
             <DayOption 
-              key={i}
+              key={day.getTime()}
               monthSelect={currMonth}
               day={day}
               eventItems={eventItems}
               setPopupIsVisible={setPopupIsVisible}
               setSelectedDate={setSelectedDate}
+              selectedDate={selectedDate}
             />
           ))
         }
