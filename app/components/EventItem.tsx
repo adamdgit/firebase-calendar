@@ -11,17 +11,24 @@ type eventItemProps = {
   setMessage: (args: string) => void
 }
 
+  // Converts selected date and time to javascript friendly format for Date() method
+  const fixDateFormat = (date: string, hours: string, mins: string) => {
+    let dateTime = date + "T" + hours + ":" + mins + ":00+10:00"
+    return dateTime
+  };
+
 export default function EventItem({ item, eventItems, setEventItems, setNeedsUpdate, setMessage }
   : eventItemProps) {
   // convert UTC date from firebase to australian time
-  const formatDate = new Date(item.datetime).toLocaleDateString('en-au', { weekday: 'short', day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit' });
+
+  const formatDate = new Date(item.datetime).toLocaleDateString("en-au", { weekday: 'short', day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit' });
 
   const [editEnabled, setEditEnabled] = useState(false);
   const [desc, setDesc] = useState(item.description);
   const [title, setTitle] = useState(item.title);
   const [date, setDate] = useState(() => {
     let tmpYear = new Date(item.datetime).getFullYear().toString();
-    let tmpMonth = new Date(item.datetime).getMonth() < 10 ? "0" + new Date(item.datetime).getMonth().toString() : new Date(item.datetime).getMonth().toString()
+    let tmpMonth = new Date(item.datetime).getMonth() < 10 ? "0" + (new Date(item.datetime).getMonth() + 1).toString() : (new Date(item.datetime).getMonth() + 1).toString()
     let tempDay = new Date(item.datetime).getDate().toString();
     return tmpYear + "-" + tmpMonth + "-" + tempDay;
   });
@@ -31,12 +38,14 @@ export default function EventItem({ item, eventItems, setEventItems, setNeedsUpd
   async function deleteEventByID(id: string) {
     try {
       await deleteDoc(doc(db, "events", id));
+
       // filter out deleted event if firebase success
       const filteredEvents = eventItems.filter(a => a.id !== id);
       setEventItems(filteredEvents);
+
       // send update message
       setNeedsUpdate(true);
-      setMessage("Event deleted");
+      setMessage("Event Deleted");
     } catch (err) {
       console.error(err);
     }
@@ -52,11 +61,16 @@ export default function EventItem({ item, eventItems, setEventItems, setNeedsUpd
       description: desc
     }
 
+    setEditEnabled(false);
+
     try {
       await updateDoc(doc(db, "events", id), data);
 
-      setEditEnabled(false);
+      // send update message
+      setNeedsUpdate(true);
+      setMessage("Event Updated");
 
+      // update the selected event if the updateDoc is successful
       const updatedEvents = eventItems.map(item => {
         if (item.id === id) {
           return {
@@ -76,12 +90,6 @@ export default function EventItem({ item, eventItems, setEventItems, setNeedsUpd
     } catch (err) {
       console.error(err);
     }
-  };
-
-  // Converts selected date and time to javascript friendly format for Date() method
-  const fixDateFormat = (date: string, hours: string, mins: string) => {
-    let dateTime = date + "T" + hours + ":" + mins + ":00Z"
-    return dateTime
   };
 
   return (
