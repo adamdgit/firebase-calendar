@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { getCurrentUser } from "./firebase/firebase-admin";
 import Header from "./components/Header";
-import Home from "./components/Home";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
