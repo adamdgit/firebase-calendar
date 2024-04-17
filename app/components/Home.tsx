@@ -26,11 +26,6 @@ export default function Home({ currentUser } : { currentUser: UserRecord | null 
   const [needsUpdate, setNeedsUpdate] = useState(false);
   const [currYear, setCurrYear] = useState(new Date().getFullYear());
   const [currMonth, setCurrMonth] = useState(new Date().getMonth());
-  // currMonth returns a number, monthMap maps the number to the word
-  const [monthMap] = useState([
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ]);
 
   async function getUserEvents() {
     // Only want to fetch events for selected month
@@ -79,15 +74,14 @@ export default function Home({ currentUser } : { currentUser: UserRecord | null 
 
   return (
     <main className="page-wrap">
-      <div className="events">
-        <h3>Events for {monthMap[currMonth]} {currYear}:</h3><br/>
-        <UserEvents 
-          setEventItems={setEventItems}
-          eventItems={eventItems}
-          setNeedsUpdate={setNeedsUpdate}
-          setMessage={setMessage}
-        />
-      </div>
+      <UserEvents 
+        setEventItems={setEventItems}
+        eventItems={eventItems}
+        setNeedsUpdate={setNeedsUpdate}
+        setMessage={setMessage}
+        currMonth={currMonth}
+        currYear={currYear}
+      />
       <Calendar 
         eventItems={eventItems}
         setEventItems={setEventItems}
