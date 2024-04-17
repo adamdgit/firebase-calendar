@@ -9,7 +9,7 @@ import EventPopup from './EventPopup';
 // create dynamic dates based on current year forward
 const yearData: Number[] = []
 yearData.push(Number(new Date().getFullYear()))
-for (let i=1; i<20; i++) {
+for (let i=1; i<10; i++) {
   yearData.push(Number(yearData[0]) +i)
 }  
 
