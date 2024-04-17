@@ -22,7 +22,7 @@ const fixDateFormat = (selectedDate: string, hours: string, mins: string) => {
     let fixedDate = selectedDate.split("/")[2] + "-" 
     + selectedDate.split("/")[0] + "-"
     + selectedDate.split("/")[1];
-    let dateTime = fixedDate + "T" + hours + ":" + mins + ":00Z"
+    let dateTime = fixedDate + "T" + hours + ":" + mins + ":00+10:00" // +10 for sydney
     return dateTime
 };
 
