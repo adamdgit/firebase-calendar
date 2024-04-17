@@ -25,11 +25,14 @@ type calendarProps = {
   setCurrYear: (args: number) => void,
   currYear: number,
   setCurrMonth: (args: number) => void,
-  currMonth: number
+  currMonth: number,
+  setNeedsUpdate: (args: boolean) => void,
+  setMessage: (args: string) => void 
 }
 
 export default function Calendar(
-  { eventItems, setEventItems, setCurrYear, currYear, setCurrMonth, currMonth }: calendarProps) {
+  { eventItems, setEventItems, setCurrYear, currYear, setCurrMonth, currMonth, setNeedsUpdate, setMessage  }
+  : calendarProps) {
 
   const [calendarData, setCalendarData] = useState<Date[]>([])
   const [popupIsVisible, setPopupIsVisible] = useState(false);
@@ -59,9 +62,10 @@ export default function Calendar(
           selectedDate={selectedDate}
           eventItems={eventItems}
           setEventItems={setEventItems}
+          setNeedsUpdate={setNeedsUpdate}
+          setMessage={setMessage}
         />
         <div className="cal-header">
-
           <div className="cal-dates">
             <span className="cal-year">Year: 
               <select 
