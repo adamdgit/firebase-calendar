@@ -14,6 +14,7 @@
 /out/
 app/firebase
 app/lib
+calendar-admin.json
 
 # production
 /build
