@@ -28,10 +28,15 @@ h1 {
   display: grid;
   justify-self: center;
   grid-template-columns: 1fr auto;
-  height: calc(100dvh - var(--navHeight));
   padding-top: 1rem;
   width: 100%;
   max-width: var(--maxPageWidth);
+}
+
+.not-signedin {
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 /*----- EVENTS STYLES -----*/
@@ -56,12 +61,14 @@ h1 {
 }
 
 .item-wrap {
+  position: relative;
   display: grid;
   gap: .7rem;
   background-color: white;
   box-shadow: 0 0 10px 0 #ccc;
   border-radius: 5px;
   padding: .9rem;
+  border: 2px solid #78b5e7;
 }
 
 .item-date {
@@ -94,36 +101,6 @@ h1 {
   fill: #cc3939;
 }
 
-.btn-edit:hover .edit-tooltip,  .btn-remove:hover .remove-tooltip{
-  top: 30px;
-  opacity: 1;
-}
-
-.btn-edit:hover .arrow-up, .btn-remove:hover .arrow-up {
-  top: -5px;
-  right: 15px;
-}
-
-.edit-tooltip, .remove-tooltip {
-  top: 50px;
-  right: -10px;
-  width: 8rem;
-}
-
-.edit-tooltip, .remove-tooltip {
-  opacity: 0;
-  pointer-events: none;
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  background-color: #333;
-  color: white;
-  height: 3rem;
-  z-index: 88888;
-  transition: 200ms ease-in-out;
-}
-
 .arrow-up {
   position: absolute;
   width: 0; 
@@ -132,6 +109,18 @@ h1 {
   border-right: 5px solid transparent;
   border-bottom: 5px solid #333;
   z-index: 99999;
+}
+
+.edit-input {
+  background: #dedede;
+  border-radius: 5px;
+  padding: .5rem;
+}
+
+.edit-datetime {
+  display: grid;
+  grid-template-columns: 1fr 60px 60px;
+  gap: 1rem;
 }
 
 /*----- ADD EVENT POPUP STYLES -----*/
@@ -162,6 +151,28 @@ h1 {
   font-weight: bold;
 }
 
+.edit-event {
+  position: absolute;
+  background: #333;
+  color: white;
+  padding: .7rem 1rem;
+  right: -100px;
+  z-index: 99;
+}
+
+.arrow-left {
+  position: absolute;
+  width: 0; 
+  height: 0; 
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #333;
+  z-index: 99999;
+  left: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .btn-close-popup {
   position: absolute;
   top: -15px;
@@ -169,6 +180,12 @@ h1 {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  transition: all 150ms ease-in-out;
+}
+
+.btn-close-popup:hover {
+  background: #cc3939;
+  fill: white;
 }
 
 .popup-date-time {
@@ -197,13 +214,13 @@ h1 {
   top: 460px;
 }
 
-.btn-submit {
+.btn-submit, .btn-save {
   width: 120px;
   border-radius: 5px;
   height: 35px;
 }
 
-.btn-submit:hover {
+.btn-submit:hover, .btn-save:hover {
   background: #78b5e7;
   color: white;
 }
@@ -215,8 +232,9 @@ h1 {
 
 /*----- CALENDAR STYLES -----*/
 .calendar-wrap {
-  min-height: 100%;
+  height: fit-content;
   padding: 2rem;
+  max-width: fit-content;
 }
 
 .calendar {
@@ -294,8 +312,7 @@ h1 {
 }
 
 .today {
-  color: white;
-  background: #b178e7;
+  border: 3px solid #333;
 }
 
 .notCurrentMonth {
@@ -307,7 +324,8 @@ h1 {
   display: grid;
   padding-inline: 2rem;
   background: #333;
-  border-bottom: 6px solid #78b5e7
+  border-bottom: 6px solid #78b5e7;
+  z-index: 2;
 }
 
 .nav-wrap {
@@ -353,4 +371,36 @@ h1 {
 .btn-primary:hover {
   background-color: #cc3939;
   color: white;
+}
+
+.message-tooltip {
+  position: absolute;
+  opacity: 0;
+  color: #000;
+  font-weight: bold;
+  background-color:#78b5e7;
+  padding: 1rem 2rem;
+  top: calc(var(--navHeight) - 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 250ms ease-in-out;
+  border-radius: 0 0 5px 5px;
+}
+
+/* Change to 2 column layout for smaller screens */
+@media only screen and (max-width: 900px) {
+  .page-wrap {
+    grid-template-columns: unset;
+    justify-content: center;
+  }
+
+  .calendar-wrap {
+    grid-row: 1;
+    padding: 1rem;
+  }
+
+  .events {
+    grid-row: 2;
+    padding: 1rem 1rem 3rem 1rem;
+  }
 }
