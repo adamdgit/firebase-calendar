@@ -1,13 +1,16 @@
+import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { revokeAllSessions } from "@/app/firebase/firebase-admin";
 
-export async function POST(request: NextRequest) {
-  const options = {
-    name: "session",
-    value: "",
-    maxAge: -1
-  };
+export async function GET() {
+  const sessionCookie = cookies().get("__session")?.value;
 
-  cookies().set(options);
-  return NextResponse.json({}, { status: 200 });
+  if (!sessionCookie)
+    return NextResponse.json({ success: false, error: "Session not found." }, { status: 400 });
+
+  cookies().delete("__session");
+
+  await revokeAllSessions(sessionCookie);
+
+  return NextResponse.json({ success: true, data: "Signed out successfully." });
 }
