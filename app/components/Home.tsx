@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Calendar from "./Calendar";
-import Navbar from "./Navbar";
 import UserEvents from "./UserEvents";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase/config";
 import UpdateMessage from "./UpdateMessage";
-import { User, getRedirectResult, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { UserRecord } from "firebase-admin/auth";
 
 export type firebaseEventObj = {
@@ -80,36 +79,30 @@ export default function Home({ currentUser } : { currentUser: UserRecord | null 
 
   return (
     <main className="page-wrap">
-      {userData ? 
-        <>
-          <div className="events">
-            <h3>Events for {monthMap[currMonth]} {currYear}:</h3><br/>
-            <UserEvents 
-              setEventItems={setEventItems}
-              eventItems={eventItems}
-              setNeedsUpdate={setNeedsUpdate}
-              setMessage={setMessage}
-            />
-          </div>
-          <Calendar 
-            eventItems={eventItems}
-            setEventItems={setEventItems}
-            setCurrYear={setCurrYear}
-            currYear={currYear}
-            setCurrMonth={setCurrMonth}
-            currMonth={currMonth}
-            setNeedsUpdate={setNeedsUpdate}
-            setMessage={setMessage}
-          />
-          <UpdateMessage 
-            message={message}
-            needsUpdate={needsUpdate}
-            setNeedsUpdate={setNeedsUpdate}
-          />
-        </>
-        :
-        <p style={{textAlign: 'center', marginTop: '1rem'}}>Please login to use this app.</p>
-      }
+      <div className="events">
+        <h3>Events for {monthMap[currMonth]} {currYear}:</h3><br/>
+        <UserEvents 
+          setEventItems={setEventItems}
+          eventItems={eventItems}
+          setNeedsUpdate={setNeedsUpdate}
+          setMessage={setMessage}
+        />
+      </div>
+      <Calendar 
+        eventItems={eventItems}
+        setEventItems={setEventItems}
+        setCurrYear={setCurrYear}
+        currYear={currYear}
+        setCurrMonth={setCurrMonth}
+        currMonth={currMonth}
+        setNeedsUpdate={setNeedsUpdate}
+        setMessage={setMessage}
+      />
+      <UpdateMessage 
+        message={message}
+        needsUpdate={needsUpdate}
+        setNeedsUpdate={setNeedsUpdate}
+      />
     </main>
   );
 }
