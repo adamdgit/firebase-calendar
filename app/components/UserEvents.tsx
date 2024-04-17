@@ -1,7 +1,7 @@
 'use client'
 
 import EventItem from "./EventItem";
-import type { firebaseEventObj } from "../page"
+import type { firebaseEventObj } from "./Home";
 
 type lsItemsProps = {
   eventItems: firebaseEventObj[],
