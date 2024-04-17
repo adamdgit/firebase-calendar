@@ -28,7 +28,7 @@ export default function Header({ userData } : { userData: UserRecord | null }) {
   return (
     <header className='navbar'>
       <div className='nav-wrap'>
-        <h1>Calendar Manager</h1>:
+        <h1>Calendar Manager</h1>
         <div className='user-wrap'>
           {
             userData ? <div className='profile'>
