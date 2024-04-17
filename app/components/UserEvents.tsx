@@ -16,7 +16,7 @@ type lsItemsProps = {
 export default function UserEvents({ eventItems, setEventItems, setNeedsUpdate, setMessage, currMonth, currYear }
   : lsItemsProps) {
 
-  // currMonth returns a number, monthMap maps the number to the word
+  // currMonth returns a number, monthMap maps the number to the month
   const [monthMap] = useState([
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -27,7 +27,7 @@ export default function UserEvents({ eventItems, setEventItems, setNeedsUpdate, 
       <h3>{eventItems.length > 0 ? `${eventItems.length} Events for ${monthMap[currMonth]} ${currYear}`: "No events found"}</h3><br/>
       <div className="event-items-wrap">
         {
-          eventItems.sort((a,b) => a.datetime - b.datetime).map((item, i) => 
+          eventItems.sort((a,b) => a.datetime - b.datetime).map(item => 
             <EventItem 
               key={item.id} 
               item={item} 
