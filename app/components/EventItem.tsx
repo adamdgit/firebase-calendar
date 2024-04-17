@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { firebaseEventObj } from "../page"
+import type { firebaseEventObj } from "./Home";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 
