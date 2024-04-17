@@ -12,7 +12,7 @@ export default function Header({ userData } : { userData: UserRecord | null }) {
   const signIn = async () => {
     const success = await signInWithGoogle();
     if (success) {
-      router.push('/home');
+      router.push('/');
       router.refresh();
     }
   }
