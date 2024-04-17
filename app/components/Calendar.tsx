@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { calcCalendarDays } from "../lib/calcDays"
 import DayOption from './DayOption'
-import type { firebaseEventObj } from "../page"
-import EventPopup from './eventPopup'
+import type { firebaseEventObj } from "./Home";
+import EventPopup from './EventPopup';
 
 // create dynamic dates based on current year forward
 const yearData: Number[] = []
