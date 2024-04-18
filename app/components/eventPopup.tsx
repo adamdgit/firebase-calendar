@@ -33,14 +33,14 @@ export default function EventPopup(
 
   const [title, setTitle] = useState(""); 
   const [description, setDescription] = useState<string>('');
-  const [hours, setHours] = useState('');
-  const [mins, setMins] = useState('');
+  const [hours, setHours] = useState('00');
+  const [mins, setMins] = useState('00');
   const [minuteValues, hourValues, hourReadable] = setDropDownValues();
 
   const resetPopupInputs = () => {
     setTitle("");
-    setHours("");
-    setMins("");
+    setHours("00");
+    setMins("00");
     setDescription("");
     setPopupIsVisible(false);
   }
@@ -78,7 +78,7 @@ export default function EventPopup(
     <div className={popupIsVisible ? "event-popup is-visible" : "event-popup"}>
       <div className="arrow-up arrow-popup"></div>
       <span className="event-heading">Add new event</span>
-      <input className="event-title" name="title" type="text" onChange={(e) => setTitle(e.target.value)} placeholder="Event Title" />
+      <input className="event-title" value={title} name="title" type="text" onChange={(e) => setTitle(e.target.value)} placeholder="Event Title" />
       <button className="btn-close-popup" 
         onClick={() => resetPopupInputs()}>
         <svg xmlns="http://www.w3.org/2000/svg" width={"20px"} height={"20px"} viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
