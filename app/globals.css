@@ -4,7 +4,7 @@
   font-size: 16px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   --navHeight: 130px;
-  --cal-width: 5vh;
+  --cal-width: 70px;
   --maxPageWidth: 1200px;
 }
 
@@ -119,8 +119,9 @@ h1 {
 
 .edit-datetime {
   display: grid;
-  grid-template-columns: 1fr 60px 60px;
+  grid-template-columns: 20px 1fr 60px 60px;
   gap: 1rem;
+  align-items: center;
 }
 
 /*----- ADD EVENT POPUP STYLES -----*/
@@ -198,8 +199,8 @@ h1 {
   gap: 10px;
 }
 
-.popup-time input {
-  width: 50px;
+.popup-time select {
+  width: 60px;
   height: 25px;
 }
 
@@ -211,7 +212,12 @@ h1 {
 .is-visible {
   opacity: 1;
   pointer-events: all;
-  top: 460px;
+  top: 100%;
+}
+
+.btn-save {
+  background: #333;
+  color: white;
 }
 
 .btn-submit, .btn-save {
@@ -222,7 +228,6 @@ h1 {
 
 .btn-submit:hover, .btn-save:hover {
   background: #78b5e7;
-  color: white;
 }
 
 .arrow-popup {
@@ -252,6 +257,7 @@ h1 {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  gap: 1rem;
   height: var(--cal-width);
 }
 
@@ -263,6 +269,7 @@ h1 {
 .cal-year, .cal-month {
   display: flex;
   gap: 1rem;
+  align-items: center;
 }
 
 .day {
@@ -392,12 +399,16 @@ h1 {
 /* Change to 2 column layout for smaller screens */
 @media only screen and (max-width: 900px) {
   :root {
-    --cal-width: 7vh;
+    --cal-width: 60px;
     --navHeight: 150px;
   }
 
   h1 {
     font-size: 1.5rem;
+  }
+
+  .navbar {
+    padding-inline: 1rem;
   }
 
   .page-wrap {
@@ -419,5 +430,25 @@ h1 {
   .events {
     grid-row: 2;
     padding: 1rem 1rem 3rem 1rem;
+  }
+
+  .profile {
+    font-size: .9rem;
+  }
+
+  .cal-year, .cal-month {
+    gap: 10px;
+    font-size: .8rem;
+  }
+
+}
+
+@media only screen and (max-width: 500px) {
+  :root {
+    --cal-width: 40px;
+  }
+
+  .cal-dates select {
+    padding: unset;
   }
 }
