@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { firebaseEventObj } from "./Home";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../firebase/config';
+import { setDropDownValues } from "../lib/setDropDownValues";
 
 type eventPopupProps = {
   popupIsVisible: boolean,
@@ -34,6 +35,7 @@ export default function EventPopup(
   const [description, setDescription] = useState<string>('');
   const [hours, setHours] = useState('');
   const [mins, setMins] = useState('');
+  const [minuteValues, hourValues, hourReadable] = setDropDownValues();
 
   const resetPopupInputs = () => {
     setTitle("");
@@ -76,7 +78,7 @@ export default function EventPopup(
     <div className={popupIsVisible ? "event-popup is-visible" : "event-popup"}>
       <div className="arrow-up arrow-popup"></div>
       <span className="event-heading">Add new event</span>
-      <input className="event-title" value={title} name="title" type="text" onChange={(e) => setTitle(e.target.value)} placeholder="Event Title" />
+      <input className="event-title" name="title" type="text" onChange={(e) => setTitle(e.target.value)} placeholder="Event Title" />
       <button className="btn-close-popup" 
         onClick={() => resetPopupInputs()}>
         <svg xmlns="http://www.w3.org/2000/svg" width={"20px"} height={"20px"} viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
@@ -88,9 +90,18 @@ export default function EventPopup(
         </span>
         <span className="popup-time">
           <svg width={20} height={20} fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>
-          Time:
-          <input name="hours" type="text" value={hours} onChange={(e) => setHours(e.target.value)} placeholder="HH" />
-          <input name="mins" type="text" value={mins} onChange={(e) => setMins(e.target.value)} placeholder="MM" />
+          Hour:
+          <select onChange={(e) => setHours(e.target.value)}>
+            {hourValues.map((h, i) => {
+              return <option key={h} value={h}>{hourReadable[i]}</option>
+            })}
+          </select>
+          Minutes: 
+          <select onChange={(e) => setMins(e.target.value)}>
+            {minuteValues.map(min => {
+              return <option key={min} value={min}>{min}</option>
+            })}
+          </select>
         </span>
       </span>
 
