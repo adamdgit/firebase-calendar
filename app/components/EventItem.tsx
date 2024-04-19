@@ -12,29 +12,34 @@ type eventItemProps = {
   setMessage: (args: string) => void
 }
 
-  // Converts selected date and time to javascript friendly format for Date() method
-  const fixDateFormat = (date: string, hours: string, mins: string) => {
-    let dateTime = date + "T" + hours + ":" + mins + ":00+10:00" // +10 for sydney time
-    return dateTime
-  };
+// Converts selected date and time to javascript friendly format for Date() method
+const fixDateFormat = (date: string, hours: string, mins: string) => {
+  let dateTime = date + "T" + hours + ":" + mins + ":00+10:00" // +10 for sydney time
+  return dateTime
+};
 
 export default function EventItem({ item, eventItems, setEventItems, setNeedsUpdate, setMessage }
   : eventItemProps) {
-  // convert UTC date from firebase to australian time
-
-  const formatDate = new Date(item.datetime).toLocaleDateString("en-au", { weekday: 'short', day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit' });
+  // convert UTC date from firebase to australian time, split on , to get only the hours and minutes
+  const formatDate = new Date(item.datetime).toLocaleDateString("en-au", { hour: '2-digit', minute: '2-digit' }).split(",")[1];
 
   const [editEnabled, setEditEnabled] = useState(false);
   const [desc, setDesc] = useState(item.description);
   const [title, setTitle] = useState(item.title);
   const [date, setDate] = useState(() => {
     let tmpYear = new Date(item.datetime).getFullYear().toString();
-    let tmpMonth = new Date(item.datetime).getMonth() < 10 ? "0" + (new Date(item.datetime).getMonth() + 1).toString() : (new Date(item.datetime).getMonth() + 1).toString()
+    let tmpMonth = new Date(item.datetime).getMonth() < 10 ? "0" + 
+      (new Date(item.datetime).getMonth() + 1).toString() : 
+      (new Date(item.datetime).getMonth() + 1).toString()
     let tempDay = new Date(item.datetime).getDate().toString();
     return tmpYear + "-" + tmpMonth + "-" + tempDay;
   });
-  const [hour, setHour] = useState(new Date(item.datetime).getHours() < 10 ? "0" + new Date(item.datetime).getHours().toString() : new Date(item.datetime).getHours().toString());
-  const [mins, setMins] = useState(new Date(item.datetime).getMinutes() < 10 ? "0" + new Date(item.datetime).getMinutes().toString() : new Date(item.datetime).getMinutes().toString());
+  const [hour, setHour] = useState(new Date(item.datetime).getHours() < 10 ? 
+    "0" + new Date(item.datetime).getHours().toString() : 
+    new Date(item.datetime).getHours().toString());
+  const [mins, setMins] = useState(new Date(item.datetime).getMinutes() < 10 ? 
+    "0" + new Date(item.datetime).getMinutes().toString() : 
+    new Date(item.datetime).getMinutes().toString());
   const [minuteValues, hourValues, hourReadable] = setDropDownValues();
   
   async function deleteEventByID(id: string) {
