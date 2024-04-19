@@ -50,6 +50,17 @@ h1 {
   gap: 1rem;
 }
 
+.day-wrapper {
+  display: grid;
+  gap: 1rem;
+}
+
+.day-title {
+  font-weight: bold;
+  padding-bottom: .5rem;
+  border-bottom: 3px solid #78b5e7;
+}
+
 .item-title {
   font-weight: bold;
   font-size: 1.1rem;
@@ -68,7 +79,6 @@ h1 {
   box-shadow: 0 0 10px 0 #ccc;
   border-radius: 5px;
   padding: .9rem;
-  border: 2px solid #78b5e7;
 }
 
 .item-date {
