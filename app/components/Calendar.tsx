@@ -5,6 +5,7 @@ import { calcCalendarDays } from "../lib/calcDays"
 import DayOption from './DayOption'
 import type { firebaseEventObj } from "./Home";
 import EventPopup from './EventPopup';
+import { UserRecord } from 'firebase-admin/auth';
 
 // create dynamic dates based on current year forward
 const yearData: Number[] = []
@@ -27,11 +28,12 @@ type calendarProps = {
   setCurrMonth: (args: number) => void,
   currMonth: number,
   setNeedsUpdate: (args: boolean) => void,
-  setMessage: (args: string) => void 
+  setMessage: (args: string) => void,
+  userData: UserRecord | null
 }
 
 export default function Calendar(
-  { eventItems, setEventItems, setCurrYear, currYear, setCurrMonth, currMonth, setNeedsUpdate, setMessage  }
+  { eventItems, setEventItems, setCurrYear, currYear, setCurrMonth, currMonth, setNeedsUpdate, setMessage, userData }
   : calendarProps) {
 
   const [calendarData, setCalendarData] = useState<Date[]>([])
@@ -64,6 +66,7 @@ export default function Calendar(
           setEventItems={setEventItems}
           setNeedsUpdate={setNeedsUpdate}
           setMessage={setMessage}
+          userData={userData}
         />
         <div className="cal-header">
           <div className="cal-dates">
