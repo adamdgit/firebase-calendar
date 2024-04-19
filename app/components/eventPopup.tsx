@@ -1,10 +1,12 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import type { firebaseEventObj } from "./Home";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../firebase/config';
 import { setDropDownValues } from "../lib/setDropDownValues";
+import { fixDateFormat } from "../lib/fixDateFormat";
+import { UserRecord } from "firebase-admin/auth";
 
 type eventPopupProps = {
   popupIsVisible: boolean,
@@ -13,28 +15,18 @@ type eventPopupProps = {
   eventItems: firebaseEventObj[],
   setEventItems: (args: firebaseEventObj[]) => void,
   setNeedsUpdate: (args: boolean) => void,
-  setMessage: (args: string) => void 
+  setMessage: (args: string) => void,
+  userData: UserRecord | null
 }
 
-// Converts selected date and time to javascript friendly format for Date() method
-const fixDateFormat = (selectedDate: string, hours: string, mins: string) => {
-    // Javascript date offical spec: YYYY-MM-DDTHH:mm:ss.sssZ
-    // selectedDate = MM/DD/YYY
-    let fixedDate = selectedDate.split("/")[2] + "-" 
-    + selectedDate.split("/")[0] + "-"
-    + selectedDate.split("/")[1];
-    let dateTime = fixedDate + "T" + hours + ":" + mins + ":00+10:00" // +10 for sydney
-    return dateTime
-};
-
 export default function EventPopup(
-  { popupIsVisible, setPopupIsVisible, selectedDate, eventItems, setEventItems, setNeedsUpdate, setMessage } 
+  { popupIsVisible, setPopupIsVisible, selectedDate, eventItems, setEventItems, setNeedsUpdate, setMessage, userData } 
   : eventPopupProps ) {
 
   const [title, setTitle] = useState(""); 
-  const [description, setDescription] = useState<string>('');
-  const [hours, setHours] = useState('00');
-  const [mins, setMins] = useState('00');
+  const [description, setDescription] = useState("");
+  const [hours, setHours] = useState("00");
+  const [mins, setMins] = useState("00");
   const [minuteValues, hourValues, hourReadable] = setDropDownValues();
 
   const resetPopupInputs = () => {
@@ -48,8 +40,12 @@ export default function EventPopup(
   async function addEventToFirebase() {
     const dateTime = fixDateFormat(selectedDate, hours, mins);
 
+    // this is here to remove typescript errors, however,this component won't be 
+    // loaded if there is no userData found in page.tsx at top level
+    if (!userData || !userData.email) throw new Error("No User Found!");
+
     const data = {
-      author: "adammdemol@gmail.com",
+      author: userData.email,
       title: title,
       datetime: new Date(dateTime),
       description: description
