@@ -17,7 +17,7 @@ export type firebaseEventObj = {
   description: string
 };
 
-export default function Home({ currentUser } : { currentUser: UserRecord | null }) {
+export default function Home({ currentUser } : { currentUser: UserRecord }) {
 
   const [userData, setUserData] = useState<UserRecord | null>(currentUser);
 
@@ -91,6 +91,7 @@ export default function Home({ currentUser } : { currentUser: UserRecord | null 
         currMonth={currMonth}
         setNeedsUpdate={setNeedsUpdate}
         setMessage={setMessage}
+        userData={userData}
       />
       <UpdateMessage 
         message={message}
