@@ -22,7 +22,7 @@ type eventPopupProps = {
 export default function EventPopup(
   { popupIsVisible, setPopupIsVisible, selectedDate, eventItems, setEventItems, setNeedsUpdate, setMessage, userData } 
   : eventPopupProps ) {
-
+  //test
   const [title, setTitle] = useState(""); 
   const [description, setDescription] = useState("");
   const [hours, setHours] = useState("00");
