@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from "react";
-import type { firebaseEventObj } from "../page"
+import type { firebaseEventObj } from "./Home";
 
 type dayOptionProps = {
   day: Date,
