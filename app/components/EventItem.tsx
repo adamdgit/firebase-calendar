@@ -103,8 +103,6 @@ export default function EventItem({ item, eventItems, setEventItems, setNeedsUpd
   if (editEnabled) {
     return (
       <li className="item-wrap" style={editEnabled ? {border: '1px solid red'} : {}}>
-        <span className="edit-event"><div className="arrow-left"></div>Editing</span>
-       
         <div className="item-text" data-id={item.id}>
           <input className="edit-input" type="text" name="title" defaultValue={item.title} onChange={(e) => setTitle(e.target.value)} /> 
         
@@ -147,7 +145,10 @@ export default function EventItem({ item, eventItems, setEventItems, setNeedsUpd
             })}
           </select>
         </div> 
-        <button className="btn-save" onClick={() => updateEventByID(item.id)}>Save</button>
+        <div className="edit-btns">
+          <button className="btn-save" onClick={() => updateEventByID(item.id)}>Save</button>
+          <button className="btn-cancel" onClick={() => setEditEnabled(false)}>Cancel</button>
+        </div>
       </li>
     )
   }

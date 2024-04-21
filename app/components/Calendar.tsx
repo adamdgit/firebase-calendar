@@ -57,6 +57,7 @@ export default function Calendar(
 
   return (
     <div className="calendar-wrap" id="datepicker-container">
+      <h3>Select a day to create new events.</h3><br/>
       <div className="calendar">
         <EventPopup 
           popupIsVisible={popupIsVisible} 

@@ -50,6 +50,17 @@ h1 {
   gap: 1rem;
 }
 
+.day-wrapper {
+  display: grid;
+  gap: 1rem;
+}
+
+.day-title {
+  font-weight: bold;
+  padding-bottom: .5rem;
+  border-bottom: 3px solid #78b5e7;
+}
+
 .item-title {
   font-weight: bold;
   font-size: 1.1rem;
@@ -68,7 +79,6 @@ h1 {
   box-shadow: 0 0 10px 0 #ccc;
   border-radius: 5px;
   padding: .9rem;
-  border: 2px solid #78b5e7;
 }
 
 .item-date {
@@ -152,26 +162,10 @@ h1 {
   font-weight: bold;
 }
 
-.edit-event {
-  position: absolute;
-  background: #333;
-  color: white;
-  padding: .7rem 1rem;
-  right: -100px;
-  z-index: 99;
-}
-
-.arrow-left {
-  position: absolute;
-  width: 0; 
-  height: 0; 
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-right: 5px solid #333;
-  z-index: 99999;
-  left: -5px;
-  top: 50%;
-  transform: translateY(-50%);
+.edit-btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .btn-close-popup {
@@ -215,12 +209,12 @@ h1 {
   top: 100%;
 }
 
-.btn-save {
+.btn-save, .btn-cancel {
   background: #333;
   color: white;
 }
 
-.btn-submit, .btn-save {
+.btn-submit, .btn-save, .btn-cancel {
   width: 120px;
   border-radius: 5px;
   height: 35px;
@@ -228,6 +222,10 @@ h1 {
 
 .btn-submit:hover, .btn-save:hover {
   background: #78b5e7;
+}
+
+.btn-cancel:hover {
+  background: #cc3939;
 }
 
 .arrow-popup {
