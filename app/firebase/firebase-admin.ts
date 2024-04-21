@@ -5,7 +5,11 @@ import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { SessionCookieOptions, getAuth } from "firebase-admin/auth";
 
 const firebaseAdminConfig = {
-  credential: cert('./calendar-admin.json')
+  credential: cert({
+    projectId: process.env.NEXT_PUBLIC_PROJECTID,
+    clientEmail: process.env.NEXT_PUBLIC_CLIENTEMAIL,
+    privateKey: process.env.NEXT_PUBLIC_PRIVATEKEY?.replace(/\\n/g, '\n')
+  })
 }
 
 export const firebaseApp =
