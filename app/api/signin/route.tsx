@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSessionCookie } from "@/app/firebase/firebase-admin";
 
 export async function POST(request: NextRequest) {
-
   const reqBody = await request.json() as { idToken: string };
   const idToken = reqBody.idToken;
 
@@ -11,14 +10,7 @@ export async function POST(request: NextRequest) {
 
   const sessionCookie = await createSessionCookie(idToken, { expiresIn });
 
-  if (sessionCookie) {
-    return NextResponse.json({ "success": true, "data": "Cookie set", "cookie": sessionCookie });
-  } 
-  
-  return NextResponse.json({ "success": true, "data": "Cookie Failed", "cookie": sessionCookie });
-  
+  cookies().set("__session", sessionCookie, { maxAge: expiresIn, httpOnly: true, secure: true });
 
-  // cookies().set("__session", sessionCookie, { maxAge: expiresIn, httpOnly: true, secure: true });
-
-  // return NextResponse.json({ "success": true, "data": "Signed in successfully." });
+  return NextResponse.json({ "success": true, "data": "Signed in successfully." });
 }

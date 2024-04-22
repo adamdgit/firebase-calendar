@@ -59,7 +59,7 @@ async function getSession() {
 }
 
 export async function createSessionCookie(idToken: string, sessionCookieOptions: SessionCookieOptions) {
-  return auth.createSessionCookie(idToken, sessionCookieOptions);
+  return await auth.createSessionCookie(idToken, sessionCookieOptions);
 }
 
 export async function revokeAllSessions(session: string) {
