@@ -12,5 +12,5 @@ export async function POST(request: NextRequest) {
 
   cookies().set("__session", sessionCookie, { maxAge: expiresIn, httpOnly: true, secure: true });
 
-  return NextResponse.json({ success: true, data: "Signed in successfully." });
+  return NextResponse.json({ "success": true, "data": "Signed in successfully." });
 }
