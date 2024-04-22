@@ -16,9 +16,7 @@ export async function signInWithGoogle() {
       body: JSON.stringify({ idToken }),
     });
 
-    const resBody = await response.json();
-
-    if (response.ok && resBody.success) {
+    if (response.ok) {
       return true;
     } else {
       return false;
