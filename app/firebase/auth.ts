@@ -18,7 +18,7 @@ export async function signInWithGoogle() {
 
     const resBody = await response.json();
 
-    if (resBody.success) {
+    if (response.ok && resBody.success) {
       return true;
     } else {
       return false;
