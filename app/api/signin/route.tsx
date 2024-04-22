@@ -13,9 +13,10 @@ export async function POST(request: NextRequest) {
 
   if (sessionCookie) {
     return NextResponse.json({ "success": true, "data": "Cookie set", "cookie": sessionCookie });
-  } else {
-    return NextResponse.json({ "success": true, "data": "Cookie Failed", "cookie": sessionCookie });
-  }
+  } 
+  
+  return NextResponse.json({ "success": true, "data": "Cookie Failed", "cookie": sessionCookie });
+  
 
   // cookies().set("__session", sessionCookie, { maxAge: expiresIn, httpOnly: true, secure: true });
 
