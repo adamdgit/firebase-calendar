@@ -10,10 +10,6 @@ export async function POST(request: NextRequest) {
 
   const sessionCookie = await createSessionCookie(idToken, { expiresIn });
 
-  if (!sessionCookie) {
-    return NextResponse.json({ success: false, data: "Session cookie failed to create" });
-  }
-
   cookies().set("__session", sessionCookie, { maxAge: expiresIn, httpOnly: true, secure: true });
 
   return NextResponse.json({ success: true, data: "Signed in successfully." });
