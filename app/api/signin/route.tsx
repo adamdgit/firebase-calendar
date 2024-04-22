@@ -3,14 +3,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSessionCookie } from "@/app/firebase/firebase-admin";
 
 export async function POST(request: NextRequest) {
-  const reqBody = (await request.json()) as { idToken: string };
-  const idToken = reqBody.idToken;
 
-  const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
+  return NextResponse.json({ "success": true, "data": "Server Exists" });
+  // const reqBody = (await request.json()) as { idToken: string };
+  // const idToken = reqBody.idToken;
 
-  const sessionCookie = await createSessionCookie(idToken, { expiresIn });
+  // const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
 
-  cookies().set("__session", sessionCookie, { maxAge: expiresIn, httpOnly: true, secure: true });
+  // const sessionCookie = await createSessionCookie(idToken, { expiresIn });
 
-  return NextResponse.json({ "success": true, "data": "Signed in successfully." });
+  // cookies().set("__session", sessionCookie, { maxAge: expiresIn, httpOnly: true, secure: true });
+
+  // return NextResponse.json({ "success": true, "data": "Signed in successfully." });
 }
