@@ -8,9 +8,12 @@ export async function POST(request: NextRequest) {
 
   const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
 
-  const sessionCookie = await createSessionCookie(idToken, { expiresIn });
-
-  cookies().set("__session", sessionCookie, { maxAge: expiresIn, httpOnly: true, secure: true });
+  try {
+    const sessionCookie = await createSessionCookie(idToken, { expiresIn });
+    cookies().set("__session", sessionCookie, { maxAge: expiresIn, httpOnly: true, secure: true });
+  } catch (error) {
+    return NextResponse.json({ "success": false, "data": error });
+  }
 
   return NextResponse.json({ "success": true, "data": "Signed in successfully." });
 }
