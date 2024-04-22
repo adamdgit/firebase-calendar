@@ -15,10 +15,14 @@ export async function signInWithGoogle() {
       },
       body: JSON.stringify({ idToken }),
     });
-    const resBody = (await response.json());
-    if (response.ok && resBody.success) {
+
+    const resBody = await response.json();
+
+    if (resBody.success) {
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   } catch (error) {
     console.error("Error signing in with Google", error);
     return false;
