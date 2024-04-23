@@ -283,6 +283,7 @@ h1 {
   grid-template-columns: repeat(7, var(--cal-width));
   justify-content: center;
   background: #eee;
+  border-bottom: 3px solid #78b5e7;
 }
 
 .cal-days-wrap {
