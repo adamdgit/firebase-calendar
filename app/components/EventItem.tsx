@@ -3,6 +3,7 @@ import type { firebaseEventObj } from "./Home";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { setDropDownValues } from "../lib/setDropDownValues";
+import { UserRecord } from "firebase-admin/auth";
 
 type eventItemProps = {
   item: firebaseEventObj,
@@ -58,11 +59,11 @@ export default function EventItem({ item, eventItems, setEventItems, setNeedsUpd
     }
   };
 
-  async function updateEventByID(id: string) {
+  async function updateEventByID(id: string, author: string) {
     const formatedDate = fixDateFormat(date, hour, mins);
 
     const data = {
-      author: "adammdemol@gmail.com",
+      author: author,
       title: title,
       datetime: new Date(formatedDate),
       description: desc
@@ -146,7 +147,7 @@ export default function EventItem({ item, eventItems, setEventItems, setNeedsUpd
           </select>
         </div> 
         <div className="edit-btns">
-          <button className="btn-save" onClick={() => updateEventByID(item.id)}>Save</button>
+          <button className="btn-save" onClick={() => updateEventByID(item.id, item.author)}>Save</button>
           <button className="btn-cancel" onClick={() => setEditEnabled(false)}>Cancel</button>
         </div>
       </li>
