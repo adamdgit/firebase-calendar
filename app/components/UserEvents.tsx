@@ -32,7 +32,7 @@ export default function UserEvents({ eventItems, setEventItems, setNeedsUpdate, 
 
   return (
     <div className="events">
-      <h3>{eventItems.length > 0 ? `${eventItems.length} Events for ${monthMap[currMonth]} ${currYear}`: "No events found"}</h3><br/>
+      <h3>{eventItems.length > 0 ? `${eventItems.length} Events for ${monthMap[currMonth]} ${currYear}`: `Your calendar for ${monthMap[currMonth]} ${currYear} is empty`}</h3><br/>
       <div className="event-items-wrap">
         {
           dayWrappers?.map(day => {
