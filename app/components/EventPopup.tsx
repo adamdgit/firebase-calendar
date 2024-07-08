@@ -40,7 +40,7 @@ export default function EventPopup(
   async function addEventToFirebase() {
     const dateTime = fixDateFormat(selectedDate, hours, mins);
 
-    // this is here to remove typescript errors, however,this component won't be 
+    // this is here to remove typescript errors, however, this component won't be 
     // loaded if there is no userData found in page.tsx at top level
     if (!userData || !userData.email) throw new Error("No User Found!");
 
