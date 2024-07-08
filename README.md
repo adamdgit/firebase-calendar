@@ -18,3 +18,7 @@ Provides a user-friendly, clean design with a unique layout, designed to be diff
 - Adding a new event via the calendar
 ---
 ![App Preview 3](https://github.com/adamdgit/firebase-calendar/blob/master/app/images/3.png)
+
+- Mobile friendly design
+---
+![App Preview 3](https://github.com/adamdgit/firebase-calendar/blob/master/app/images/4.png)
