@@ -1,7 +1,5 @@
 # Calendar Manager App - NextJs
 
-## By Adam Demol
-
 ### Description:
 This is a calendar event management application, built using NextJs, Typescript and Firebase. 
 
